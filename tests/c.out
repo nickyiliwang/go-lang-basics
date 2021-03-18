@@ -1,0 +1,9 @@
+mode: set
+github.com/nickyilwiang/testing/main.go:9.13,13.16 2 0
+github.com/nickyilwiang/testing/main.go:18.2,19.35 2 0
+github.com/nickyilwiang/testing/main.go:13.16,16.3 2 0
+github.com/nickyilwiang/testing/main.go:23.44,27.12 2 1
+github.com/nickyilwiang/testing/main.go:33.2,33.20 1 1
+github.com/nickyilwiang/testing/main.go:27.12,29.3 1 1
+github.com/nickyilwiang/testing/main.go:29.8,29.19 1 1
+github.com/nickyilwiang/testing/main.go:29.19,31.3 1 0
