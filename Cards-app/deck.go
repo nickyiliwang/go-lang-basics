@@ -9,9 +9,21 @@ type deck []string
 
 // no receiver in this fn because we want to return a new deck instance
 func newDeck() deck {
-	// cards := deck{}
+	cards := deck{}
 
-	// cardSuits := 
+	cardSuits := []string{"Spades", "Diamonds", "Hearts", "Clubs"}
+	cardValues := []string{"Ace", "Two", "Three", "Four"}
+
+	for _, suit := range cardSuits {
+		for _, val := range cardValues {
+			card := val + " of " + suit
+			cards = append(cards, card)
+		}
+
+	}
+
+	fmt.Println(cards)
+	return cards
 }
 
 // receiver
