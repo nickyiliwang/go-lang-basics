@@ -1,1 +1,1 @@
-Basics of GO# go-lang-basics
+# Basics of GoLang
