@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"io/ioutil"
 	"strings"
 )
 
@@ -16,12 +17,9 @@ func main() {
 	// hand.print("Hand:")
 	// remainingDeck.print("Remain:")
 
-	fmt.Println(hand.toString())
-}
+	hand.saveToFile("hand dealt")
 
-// Type conversion: result := []typeYouWant(valueYouHave)
-// greeting := "Hi There !"
-// fmt.Println([]byte(greeting))
+}
 
 //deck.go ////////////////////////////////////////////////////
 
@@ -67,6 +65,13 @@ func deal(d deck, handSize int) (deck, deck) {
 func (d deck) toString() string {
 	// turn ["Ace of Clubs", "Two of Clubs","Three of Clubs"]
 	// into "Ace of Clubs, Two of Clubs, Three of Clubs"
-
+	// Type conversion: result := []typeYouWant(valueYouHave)
 	return strings.Join([]string(d), ", ")
+}
+
+func (d deck) saveToFile(filename string) error {
+	// 0666 is default permission: anyone can read
+	// returning only error values
+	// ioutil is stn lib
+	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
 }
