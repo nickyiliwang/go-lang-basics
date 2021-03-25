@@ -3,21 +3,32 @@ package main
 import (
 	"fmt"
 	"io/ioutil"
+	"math/rand"
+	"os"
 	"strings"
+	"time"
 )
 
 // slicing an array: cards[startIndexIncluding : endingToNotIncluding]
 
 func main() {
-	cards := newDeck()
+	// cards := newDeck()
 	// cards.print("Deck:")
 
-	hand, _ := deal(cards, 5)
+	// hand, _ := deal(cards, 5)
 
 	// hand.print("Hand:")
 	// remainingDeck.print("Remain:")
 
-	hand.saveToFile("hand dealt")
+	// hand.saveToFile("hand dealt")
+
+	// reading deck from file
+	// cards := newDeckFromFile("hand dealt")
+
+	// Shuffling
+	cards := newDeck()
+	cards.shuffle()
+	cards.print("Post Shuffle")
 
 }
 
@@ -25,7 +36,6 @@ func main() {
 
 // Create a new type of 'deck'
 // which is a slice of strings
-
 type deck []string
 
 // no receiver in this fn because we want to return a new deck instance
@@ -74,4 +84,36 @@ func (d deck) saveToFile(filename string) error {
 	// returning only error values
 	// ioutil is stn lib
 	return ioutil.WriteFile(filename, []byte(d.toString()), 0666)
+}
+
+func newDeckFromFile(filename string) deck {
+	// byteslice and error, think of them as strings
+	bs, err := ioutil.ReadFile(filename)
+	if err != nil {
+		// Option 1 - log the error and reutrn a call to newDeck()
+		// Option 2 - log the error and quit the program
+		fmt.Println("Error:", err)
+		// any int that's not 0 indicate an need to exit
+		os.Exit(1)
+		// Option 3 - PANIC!!!!
+		// panic(err)
+	}
+
+	ss := strings.Split(string(bs), ", ") // spliting the byteslice converted string into string slice
+
+	return deck(ss)
+}
+
+// no return value or params, just take the deck value and shuffle the values inside it
+func (d deck) shuffle() {
+	// creating none fixed seed
+	seed := time.Now().UnixNano()
+	// new rand type with new seed, now gens new randomness each time
+	r := rand.New(rand.NewSource(seed))
+	for i := range d {
+		// stn pkg for generating random integer
+		newPosition := r.Intn(len(d) - 1)
+		// swapping the two positions in our desk slice
+		d[i], d[newPosition] = d[newPosition], d[i]
+	}
 }
