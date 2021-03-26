@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"time"
 )
@@ -40,10 +41,10 @@ func main() {
 	// log.Println(s)
 	// log.Println("s2 is:", s2)
 	// gettingShadowed("xxx")
+
 }
 
 func gettingShadowed(s3 string) (string, string) {
 	log.Println(s, "world")
 	return s3, "world"
-
 }
