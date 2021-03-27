@@ -1,4 +1,4 @@
-package main
+package champsMap
 
 import "log"
 
@@ -11,7 +11,7 @@ type Champion struct {
 	DPS        int
 }
 
-func main() {
+func champsMap() {
 	// String map
 	ezrealsMap := make(map[string]string)
 

@@ -39,9 +39,21 @@ func main() {
 	// Before I knew what pointers are doing/ why we need pointers
 	// Maybe pointers are used to point to the value's memory address
 	// in order for the updateName function to produce expected output
-	steve.updateName("Joey")
+
+	// steve.updateName("Joey")
+	// steve.print()
+	// lulu.print()
+
+	//
+
+	stevePointer := &steve
+	stevePointer.updateName("Joey")
 	steve.print()
+
+	// Lulu is using a shortcut where go knows lulu is type of *Person / pointer to a Person type
+	lulu.updateName("KogMaw")
 	lulu.print()
+
 }
 
 func (p Person) print() {
@@ -53,6 +65,18 @@ func (p Person) print() {
 // p in updateName is a copy
 // So when we update the FirstName's value we want to update the Person struct address space with a pointer
 
-func (p *Person) updateName(newFirstName string) {
-	p.FirstName = newFirstName
+/////// This now becomes a type description - aka pointer to a person``
+func (pointerToPerson *Person) updateName(newFirstName string) {
+	// * operator here means we want to turn the pointerToPerson into a value of type Person
+	(*pointerToPerson).FirstName = newFirstName
 }
+
+// Does not update FirstName!
+// func (p Person) updateName(newFirstName string) {
+// 	p.FirstName = newFirstName
+// }
+
+// Does update FirstName but I don't really know why!
+// func (p *Person) updateName(newFirstName string) {
+// 	p.FirstName = newFirstName
+// }
