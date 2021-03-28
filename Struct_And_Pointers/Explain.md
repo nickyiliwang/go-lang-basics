@@ -2,7 +2,7 @@
 
 # OPERATORS
 
-Turn address into value with *address / dereferencing
+Turn address into value with \*address / dereferencing
 Turn value into address with &value
 
 # Value Types Vs. Reference Types in GO
@@ -22,3 +22,7 @@ REF:
 3. channels
 4. pointers
 5. functions
+
+## slices
+
+when slices are created, go creates a slice type with: length, capacity, and pointer to head/data array. and data array. When we refer this slice, yes we are referring to a copy to the slice type, but both slice type have pointer to the head/data array, meaning if we change the array data, it is mutating the original array.
