@@ -1,48 +1,35 @@
-package champsMap
+package main
 
-import "log"
+import (
+	"fmt"
+)
 
-// maps are immutable
-// maps order are random
+func main() {
 
-type Champion struct {
-	Name       string
-	DamageType string
-	DPS        int
-}
-
-func champsMap() {
-	// String map
-	ezrealsMap := make(map[string]string)
-
-	ezrealsMap["mid"] = "Inting"
-	ezrealsMap["bot"] = "adc"
-	ezrealsMap["jg"] = "penta kill"
-
-	// Int map
-	heimersMap := make(map[int]int)
-	heimersMap[123] = 321
-
-	// Strut map
-	rengarsMap := make(map[string]Champion)
-
-	rengar := Champion{
-		Name:       "Rengar",
-		DamageType: "Attack Damage",
-		DPS:        9999999999,
+	// Init Option 1
+	// value := map[key type]values type
+	colors1 := map[string]string{
+		"red":   "#ff0000",
+		"green": "#4bf213",
+		"black": "#ffffff",
 	}
 
-	// Maps stays the same no matter where in the program it is accessed, it remains constant
-	// unlike passing pointers and unsure
-	// var oWo float32
-	// oWo = 11.1
+	// Init Option 2
+	colors := make(map[string]string)
+	// maps always uses squares syntax
+	colors["white"] = "ffffff"
+	// deleting
+	delete(colors, "white")
+	colors["red"] = "#fof0f0f"
 
-	rengarsMap["Rengar"] = rengar
+	fmt.Println(colors1)
+	fmt.Println(colors)
 
-	log.Println(ezrealsMap["mid"])
-	log.Println(heimersMap[123])
-	log.Println(rengarsMap["Rengar"])
-	log.Println(rengarsMap["Rengar"].Name)
-	log.Println(rengarsMap["Rengar"].DamageType)
-	log.Println(rengarsMap["Rengar"].DPS)
+	printMap(colors1)
+}
+
+func printMap(c map[string]string) {
+	for color, hex := range c {
+		fmt.Println("Hex code for", color, "is ", hex)
+	}
 }
