@@ -1,74 +1,51 @@
 package main
 
-import "log"
+import (
+	"fmt"
+	"time"
+)
 
-type Champion interface {
-	// defining a function that every champion must have
-	SayName() string
-	SayQuote() string
-	NumberOfWeapons() int
-}
+// Interface can be used to reduce redundant use of identical functions
 
-type Rengar struct {
-	Name    string
-	Role    string
-	Weapons int
+type bot interface {
+	// FN         return type
+	getGreeting() string
 }
-
-type Soraka struct {
-	Name     string
-	Role     string
-	Position string
-	Weapons  int
+type englishBot struct {
+	country string
+	date    time.Time
 }
+type spanishBot struct{}
+type badBot struct{}
 
 func main() {
-	rengar := Rengar{
-		Name:    "Rengar",
-		Role:    "Assassin",
-		Weapons: 2,
+	// declaring an empty struct
+	eb := englishBot{
+		country: "USA",
+		date:    time.Now(),
 	}
+	sb := spanishBot{}
 
-	PrintMyChamp(rengar)
+	printGreeting(eb)
+	printGreeting(sb)
 
-	soraka := Soraka{
-		Name:     "Soraka",
-		Role:     "Support",
-		Position: "Bottom",
-		Weapons:  1,
-	}
-
-	// Error when passing soraka type into PrintMyChamp, using the Champion interface, because soraka did not have the required signature, aka required func.
-	PrintMyChamp(soraka)
+	// bb := badBot{}
+	// cannot use bb (variable of type badBot) as bot value in argument to printGreeting: missing method getGreetingcompilerInvalidIfaceAssign
+	// printGreeting(bb)
 }
 
-// we created 2 functions and
-// (receiver type) (no params)
-func (r Rengar) SayName() string {
-	return r.Name
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
 }
 
-func (r Rengar) SayQuote() string {
-	return r.Name + " the true hunter never rests"
+func (eb englishBot) getGreeting() string {
+	// custom logic for generating an english getGreeting
+	fmt.Println(eb.country)
+	fmt.Println(eb.date)
+	return "Hello there!"
 }
 
-func (r Rengar) NumberOfWeapons() int {
-	return r.Weapons
-}
-
-func (s Soraka) SayName() string {
-	return s.Name
-}
-
-func (s Soraka) SayQuote() string {
-	return s.Name + " will not heal you!"
-}
-
-func (s Soraka) NumberOfWeapons() int {
-	return s.Weapons
-}
-
-func PrintMyChamp(c Champion) {
-	log.Println(c.SayName(), "says:", c.SayQuote())
-	log.Println(c.SayName(), "uses", c.NumberOfWeapons(), "weapons to fight")
+// can emit the receiver value if we aren't using it
+func (spanishBot) getGreeting() string {
+	return "Hola Amigo!"
 }
